@@ -1,0 +1,167 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Swagger Test입니다.",
+    "version": "1.0.0",
+    "title": "Swagger Test"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [{
+    "name": "member",
+    "description": "회원 관련 API"
+  }],
+  "schemes": ["http"],
+  "paths": {
+    "/member": {
+      "post": {
+        "tags": ["member"],
+        "summary": "회원 추가",
+        "description": "",
+        "operationId": "addMember",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "description": "회원 추가를 위한 정보",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Member"
+          }
+        }],
+        "responses": {
+          "201": {
+            "description": "회원 추가 성공"
+          },
+          "500": {
+            "description": "회원 추가 실패, 서버 오류"
+          }
+        }
+      },
+      "get": {
+        "tags": ["member"],
+        "summary": "모든 회원 조회",
+        "description": "모든 회원 정보를 조회하는 API",
+        "operationId": "getMemberById",
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "memberId",
+          "in": "path",
+          "description": "회원 고유 ID",
+          "required": true,
+          "type": "integer"
+        }],
+        "responses": {
+          "200": {
+            "description": "회원정보 조회 성공",
+            "schema": {
+              "type":"array",
+              "items": {
+                "$ref":"#/definitions/Member"
+              }
+            }
+          },
+          "500": {
+            "description": "회원정보 조회 실패, 서버 오류"
+          }
+        }
+      }
+    },
+    "/member/{memberId}": {
+      "get": {
+        "tags": ["member"],
+        "summary": "특정회원 조회",
+        "description": "회원 고유 ID를 이용하여 특정 회원의 정보 조회",
+        "operationId": "getPetById",
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "petId",
+          "in": "path",
+          "description": "회원 고유 ID",
+          "required": true,
+          "type": "integer"
+        }],
+        "responses": {
+          "200": {
+            "description": "회원정보 조회 성공",
+            "schema": {
+              "$ref": "#/definitions/Member"
+            }
+          },
+          "500": {
+            "description": "회원정보 조회 실패, 서버 오류"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["member"],
+        "summary": "회원삭제",
+        "description": "회원을 삭제하는 API",
+        "operationId": "deleteMember",
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "memberId",
+          "in": "path",
+          "description": "회원 고유 ID",
+          "required": true,
+          "type": "integer"
+        }],
+        "responses": {
+          "204": {
+            "description": "회원 삭제 성공"
+          },
+          "500": {
+            "description": "회원 삭제 실패, 서버 오류"
+          }
+        }
+      },
+      "put": {
+        "tags": ["member"],
+        "summary": "특정 회원정보 수정",
+        "description": "특정 회원의 정보를 수정하는 API",
+        "operationId": "putMemberById",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "description": "회원 추가를 위한 정보",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Member"
+          }
+        }],
+        "responses": {
+          "201": {
+            "description": "회원 추가 성공"
+          },
+          "500": {
+            "description": "회원 추가 실패, 서버 오류"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Member": {
+      "type": "object",
+      "required": ["name", "age", "gender"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "꼬부기",
+          "description": "이름"
+        },
+        "age": {
+          "type": "integer",
+          "description": "나이"
+        },
+        "gender": {
+          "type": "integer",
+          "description": "성별"
+        }
+      }
+    }
+  }
+}
